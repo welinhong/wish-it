@@ -5,6 +5,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
+npm install
+npx husky install # to enable husky
 npm run dev
 # or
 yarn dev
