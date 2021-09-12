@@ -1,0 +1,51 @@
+{
+  "Create New Empty React Component": {
+    "prefix": [
+      "cr",
+      "ccc"
+    ],
+    "body": [
+      "import styled from 'styled-components'",
+      "export interface Props {}",
+      "",
+      "const $1 = (props: Props): JSX.Element => {",
+      "  return <StyledContainer>$1</StyledContainer>",
+      "}",
+      "",
+      "const StyledContainer = styled.div``",
+      "",
+      "export default $1"
+    ],
+    "description": "Create New Empty React Component"
+  },
+  "Storybook base snippet": {
+    "prefix": [
+      "storybook",
+      "sb"
+    ],
+    "body": [
+      "import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs'",
+      "import { Level } from '../../_enums'",
+      "import $1 from '.'",
+      "",
+      "<Meta",
+      "  title={`${Level.MOLECULES} / $1`}",
+      "  component={$1}",
+      "/>",
+      "",
+      "# $1",
+      "export const Template = (args) => <$1 {...args} />",
+      "",
+      "### Basic",
+      "<Canvas>",
+      "  <Story name=\"basic\">",
+      "    {Template.bind({})}",
+      "  </Story>",
+      "</Canvas>",
+      "",
+      "### Props",
+      "<ArgsTable story={'basic'} />"
+    ],
+    "description": "Storybook base snippet"
+  }
+}
