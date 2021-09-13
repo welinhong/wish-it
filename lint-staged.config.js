@@ -1,15 +1,10 @@
 module.exports = {
   // Type check TypeScript files
-  '**/*.(ts|tsx)': () => 'npx tsc --noEmit',
+  '**/*.(ts|tsx)': 'npx tsc --noEmit',
 
   // Lint then format TypeScript and JavaScript files
-  '**/*.(ts|tsx|js)': (filenames) => [
-    `npx eslint --fix ${filenames.join(' ')}`,
-    `npx prettier --write ${filenames.join(' ')}`,
-  ],
+  '**/*.(ts|tsx|js)': ['npx eslint --fix', 'npx prettier --write'],
 
   // Format MarkDown and JSON
-  '**/*.(md|json)': (filenames) => `npx prettier --write ${filenames.join(' ')}`,
+  '**/*.(md|json)': 'npx prettier --write',
 }
-
-// ref: https://paulintrognon.fr/blog/typescript-prettier-eslint-next-js
