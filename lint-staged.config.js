@@ -1,6 +1,6 @@
 module.exports = {
   // Type check TypeScript files
-  '**/*.(ts|tsx)': 'npx tsc --noEmit',
+  '**/*.(ts|tsx)': 'npx tsc --noEmit --jsx preserve',
 
   // Lint then format TypeScript and JavaScript files
   '**/*.(ts|tsx|js)': ['npx eslint --fix', 'npx prettier --write'],
