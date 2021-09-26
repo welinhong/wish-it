@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom'
 import styled from 'styled-components'
 
 interface Props {
+  isOpen: boolean
+  onClose: () => void
   children: ReactNode
 }
 
-const Modal = ({ children }: Props): JSX.Element => {
+const Modal = ({ isOpen, onClose, children }: Props): JSX.Element => {
   const el = document.createElement('div')
 
   const handleClickOverlay = () => {
-    return false
+    onClose()
   }
 
   useEffect(() => {
@@ -20,6 +22,8 @@ const Modal = ({ children }: Props): JSX.Element => {
       document.body.removeChild(el)
     }
   })
+
+  if (!isOpen) return <></>
 
   return ReactDOM.createPortal(
     <StyledModalContainer onClick={handleClickOverlay}>

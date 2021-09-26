@@ -7,16 +7,17 @@ const Home: NextPage = () => {
   const handleClick = () => {
     setIsModalOpen((prev) => !prev)
   }
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+  }
 
   return (
     <>
       Home
       <button onClick={handleClick}>show modal</button>
-      {isModalOpen && (
-        <Modal>
-          <div>웰린짱</div>
-        </Modal>
-      )}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+        <div>웰린짱</div>
+      </Modal>
     </>
   )
 }
