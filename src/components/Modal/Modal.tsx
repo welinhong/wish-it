@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 
@@ -8,33 +8,44 @@ interface Props {
   children: ReactNode
 }
 
-// TODO: SSR 고려해서 업데이트하기 - mounted 상태에서만 portal을 사용한다 (여기서부터)
-// Modal 컴포넌트에서 모달을 아예 생성하고 body에 넣는 것까지 담당하고 싶음
+// Modal 컴포넌트에서 모달을 아예 생성하고 body에 넣는 것까지 담당
 // 참고 https://github.com/vercel/next.js/tree/canary/examples/with-portals
 // (추후) tabIndex 고려
 
 const Modal = ({ isOpen, onClose, children }: Props): JSX.Element => {
-  const el = document.createElement('div')
+  const ref = useRef<HTMLDivElement>()
+  const [mounted, setMounted] = useState(false)
 
   const handleClickOverlay = () => {
     onClose()
   }
 
   useEffect(() => {
-    document.body.appendChild(el)
+    // 위에서 생성해둔 ref에 새로운 객체 할당
+    ref.current = document.createElement('div')
+    document.body.appendChild(ref.current)
+
+    // mounted 셋팅
+    setMounted(true)
 
     return () => {
-      document.body.removeChild(el)
+      ref.current && document.body.removeChild(ref.current)
     }
-  })
+  }, [])
 
   if (!isOpen) return <></>
 
-  return createPortal(
-    <StyledModalContainer onClick={handleClickOverlay}>
-      <StyledModalContent>{children}</StyledModalContent>
-    </StyledModalContainer>,
-    el,
+  console.log('welin', mounted && ref.current)
+
+  return mounted && ref.current ? (
+    createPortal(
+      <StyledModalContainer onClick={handleClickOverlay}>
+        <StyledModalContent>{children}</StyledModalContent>
+      </StyledModalContainer>,
+      ref.current,
+    )
+  ) : (
+    <></>
   )
 }
 
