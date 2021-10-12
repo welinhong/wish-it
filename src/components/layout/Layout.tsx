@@ -19,12 +19,15 @@ const Layout = ({ children }: Props): JSX.Element => {
   )
 }
 
-const StyledContainer = styled.div``
+const StyledContainer = styled.div`
+  height: 100vh;
+`
 const StyledHeaderContainer = styled.div`
   border-bottom: 1px solid #c9c8d3;
 `
 const StyledContainerInner = styled.div`
   max-width: 1080px;
+  height: 100%;
   margin: 0 auto;
 `
 
