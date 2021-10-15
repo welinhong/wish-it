@@ -21,7 +21,7 @@ const WishDetail = (): JSX.Element => {
 
       <S.WishList>
         {wishes.map((wish) => (
-          <S.WishItem key={wish}>{wish}</S.WishItem>
+          <S.WishItem key={wish} />
         ))}
       </S.WishList>
     </S.Container>
@@ -38,10 +38,11 @@ const S = {
     grid-template-rows: repeat(11, 1fr);
     gap: 20px;
     padding: 40px 0;
-    background-color: lightyellow;
   `,
   WishItem: styled.div`
-    background-color: lightblue;
+    min-height: 200px;
+    border-radius: 30px;
+    background-color: #f2f4f6;
     &:nth-of-type(1) {
       grid-column: 1/4;
       grid-row: 1/3;
