@@ -49,7 +49,7 @@ const WishDetail: NextPage = (): JSX.Element => {
 
       <S.WishList>
         {wishItems.map(({ title, price, siteUrl, photoUrl, giverName, order }, index) => (
-          <S.WishItem key={index}>
+          <S.WishItemWrap key={index}>
             {order === index + 1 && title && price && siteUrl ? (
               <WishItemWithContent
                 title={title}
@@ -61,7 +61,7 @@ const WishDetail: NextPage = (): JSX.Element => {
             ) : (
               <WishItemDefault />
             )}
-          </S.WishItem>
+          </S.WishItemWrap>
         ))}
       </S.WishList>
     </S.Container>
@@ -79,7 +79,7 @@ const S = {
     gap: 20px;
     padding: 40px 0;
   `,
-  WishItem: styled.div`
+  WishItemWrap: styled.div`
     min-height: 200px;
     border-radius: 30px;
     &:nth-of-type(1) {
