@@ -1,8 +1,8 @@
 import ClientOnlyPortal from '@/components/ClientOnlyPortal/ClientOnlyPortal'
-import { ReactNode } from 'react'
+import { ReactNode, MouseEventHandler } from 'react'
 import styled from 'styled-components'
 
-interface Props {
+export interface Props {
   isOpen: boolean
   onClose: () => void
   children: ReactNode
@@ -12,10 +12,14 @@ interface Props {
 const Modal = (props: Props): JSX.Element => {
   const { isOpen, onClose, children } = props
 
+  const handleEventPropagation: MouseEventHandler<Element> = (e) => {
+    e.stopPropagation()
+  }
+
   return isOpen ? (
     <ClientOnlyPortal selector="#modal">
       <S.ModalContainer onClick={onClose}>
-        <S.ModalContent>{children}</S.ModalContent>
+        <S.ModalContent onClick={handleEventPropagation}>{children}</S.ModalContent>
       </S.ModalContainer>
     </ClientOnlyPortal>
   ) : (
