@@ -57,7 +57,6 @@ const SOnlyTitle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000000;
   h2 {
     background: linear-gradient(106.45deg, #1e50ff 0%, #abff4d 98.75%);
     -webkit-background-clip: text;

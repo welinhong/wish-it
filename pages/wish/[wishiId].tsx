@@ -78,6 +78,7 @@ const S = {
     grid-template-rows: repeat(11, 1fr);
     gap: 20px;
     padding: 40px 0;
+    max-height: 1080px;
   `,
   WishItemWrap: styled.div`
     min-height: 200px;
