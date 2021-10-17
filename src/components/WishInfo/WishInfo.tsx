@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import styled from 'styled-components'
+import Typography from '@/components/Typography'
 
 export interface Props {
   title: string
@@ -15,8 +16,12 @@ const WishInfo = (props: Props): JSX.Element => {
       <StyledUserImage>{userImage && <Image src={userImage} alt="User Image" />}</StyledUserImage>
 
       <StyledMeta>
-        <span>{title}</span>
-        <p>{description}</p>
+        <Typography type="header2" as="h2" marginBottom="8px">
+          {title}
+        </Typography>
+        <Typography type="body2" as="p">
+          {description}
+        </Typography>
       </StyledMeta>
     </StyledContainer>
   )
