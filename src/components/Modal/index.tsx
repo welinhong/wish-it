@@ -64,5 +64,6 @@ const S = {
     border: none;
     background: none;
     font-size: 30px;
+    cursor: pointer;
   `,
 }
