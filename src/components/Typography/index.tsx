@@ -32,12 +32,8 @@ const Typography = (props: Props): JSX.Element => {
 const StyledContainer = styled.span<Props>`
   margin: 0;
 
-  ${({ type, theme }) => {
-    return theme.typography[type]
-  }}
-  ${({ color, theme }) => {
-    return color && `color: ${theme.color[color]};`
-  }}
+  ${({ type, theme }) => theme.typography[type]}
+  ${({ color, theme }) => color && `color: ${theme.color[color]};`}
   ${({ marginBottom }) => marginBottom && `margin-bottom: ${marginBottom};`}
   ${({ ellipsis }) =>
     ellipsis &&
