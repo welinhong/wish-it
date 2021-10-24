@@ -4,14 +4,14 @@ import styled from 'styled-components'
 
 export interface Props {
   isOpen: boolean
+  width?: string
   onClose: () => void
   children: ReactNode
+  className?: string
 }
 
 // (추후) tabIndex 고려
-const Modal = (props: Props): JSX.Element => {
-  const { isOpen, onClose, children } = props
-
+const Modal = ({ isOpen, width, onClose, children, className }: Props): JSX.Element => {
   const handleEventPropagation: MouseEventHandler<Element> = (e) => {
     e.stopPropagation()
   }
@@ -19,7 +19,14 @@ const Modal = (props: Props): JSX.Element => {
   return isOpen ? (
     <ClientOnlyPortal selector="#modal">
       <S.ModalContainer onClick={onClose}>
-        <S.ModalContent onClick={handleEventPropagation}>{children}</S.ModalContent>
+        <S.ModalContent
+          style={{ width: width || '80%' }}
+          onClick={handleEventPropagation}
+          className={className}
+        >
+          <S.Close onClick={onClose}>✕</S.Close>
+          {children}
+        </S.ModalContent>
       </S.ModalContainer>
     </ClientOnlyPortal>
   ) : (
@@ -42,10 +49,20 @@ const S = {
     justify-content: center;
   `,
   ModalContent: styled.div`
+    position: relative;
     min-width: 300px;
+    max-width: 800px;
     min-height: 300px;
     background-color: #ffffff;
     border-radius: 8px;
-    padding: 20px;
+    padding: 30px;
+  `,
+  Close: styled.button`
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    border: none;
+    background: none;
+    font-size: 30px;
   `,
 }
