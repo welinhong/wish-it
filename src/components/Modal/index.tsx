@@ -11,7 +11,13 @@ export interface Props {
 }
 
 // (추후) tabIndex 고려
-const Modal = ({ isOpen, width, onClose, children, className }: Props): JSX.Element => {
+const Modal = ({
+  isOpen,
+  width,
+  onClose,
+  children,
+  className,
+}: Props): JSX.Element => {
   const handleEventPropagation: MouseEventHandler<Element> = (e) => {
     e.stopPropagation()
   }
@@ -51,7 +57,7 @@ const S = {
   ModalContent: styled.div`
     position: relative;
     min-width: 300px;
-    max-width: 800px;
+    max-width: 80%;
     min-height: 300px;
     background-color: #ffffff;
     border-radius: 8px;

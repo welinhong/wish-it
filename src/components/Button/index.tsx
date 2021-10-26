@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   padding: 15px;
   border-radius: 40px;
   border: none;
-  color: #767676;
+  background-color: ${({ theme }) => theme.color.primary};
   font-weight: bold;
   align-self: flex-start;
   cursor: pointer;
