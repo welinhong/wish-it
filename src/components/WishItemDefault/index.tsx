@@ -1,8 +1,14 @@
+import { memo } from 'react'
 import styled from 'styled-components'
 
-const WishItemDefault = (): JSX.Element => {
+interface Props {
+  onClick: () => void
+}
+const WishItemDefault = (props: Props): JSX.Element => {
+  const { onClick } = props
+
   return (
-    <SContainer>
+    <SContainer onClick={onClick}>
       <SPlusCircle>+</SPlusCircle>
     </SContainer>
   )
@@ -35,4 +41,4 @@ const SContainer = styled.div`
   }
 `
 
-export default WishItemDefault
+export default memo(WishItemDefault)

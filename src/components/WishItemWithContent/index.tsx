@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Typography from '@/components/Typography'
+import { memo } from 'react'
 
 export interface Props {
   title: string
@@ -7,13 +8,14 @@ export interface Props {
   siteUrl: string
   photoUrl?: string
   giverName?: string
+  onClick?: () => void
 }
 
 const WishItemWithContent = (props: Props): JSX.Element => {
-  const { title, price, siteUrl, photoUrl, giverName } = props
+  const { title, price, siteUrl, photoUrl, giverName, onClick } = props
 
   return (
-    <SContainer>
+    <SContainer onClick={onClick}>
       {photoUrl ? (
         <SPhoto src={photoUrl} alt={title} />
       ) : (
@@ -29,7 +31,13 @@ const WishItemWithContent = (props: Props): JSX.Element => {
         <Typography type="body2" as="p" marginBottom="8px" ellipsis>
           {price}원
         </Typography>
-        <Typography type="body2" color="primary" as="p" marginBottom="8px" ellipsis>
+        <Typography
+          type="body2"
+          color="primary"
+          as="p"
+          marginBottom="8px"
+          ellipsis
+        >
           {getOrigin(siteUrl)}
         </Typography>
         <Typography type="header3" as="h3" marginBottom="8px" ellipsis>
@@ -94,4 +102,4 @@ const SContainer = styled.div`
   }
 `
 
-export default WishItemWithContent
+export default memo(WishItemWithContent)
