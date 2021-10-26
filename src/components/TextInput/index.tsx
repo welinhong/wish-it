@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 export interface Props {
   value?: string | number
+  name?: string
   helper?: string
   placeholder?: string
   postfix?: string
@@ -15,6 +16,7 @@ export interface Props {
 // TODO: (추후) 글자수 count - max값 입력
 
 const TextInput = ({
+  name,
   value,
   helper,
   placeholder = '',
@@ -26,14 +28,14 @@ const TextInput = ({
   return (
     <StyledContainer typographyType={typographyType} className={className}>
       <StyledInput
-        name={helper}
+        name={name}
         type="text"
         value={value}
         placeholder={placeholder}
         onChange={onChange}
       />
       {postfix && <span>{postfix}</span>}
-      <label htmlFor={helper}>{helper}</label>
+      <label htmlFor={name}>{helper}</label>
     </StyledContainer>
   )
 }

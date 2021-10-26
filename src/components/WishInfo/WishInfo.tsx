@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import Typography from '@/components/Typography'
-import { MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import TextInput from '@/components/TextInput'
 import Button from '@/components/Button'
 
@@ -9,55 +9,81 @@ export interface Props {
   title: string
   description: string
   userImage?: string
-  onSave: ({ title, description }: { title: string; description: string }) => void
+  onSave: ({
+    title,
+    description,
+  }: {
+    title: string
+    description: string
+  }) => void
 }
 
-const WishInfo = ({ title, description, userImage, onSave }: Props): JSX.Element => {
+const WishInfo = ({
+  title,
+  description,
+  userImage,
+  onSave,
+}: Props): JSX.Element => {
+  const [values, setValues] = useState({
+    title,
+    description,
+  })
   const [editable, setEditable] = useState(false)
-  const [titleValue, setTitleValue] = useState(title)
-  const [descriptionValue, setDescriptionValue] = useState(description)
 
-  const handleEdit = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+
+    setValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }))
+  }
+
+  const handleEdit = () => {
     setEditable(true)
   }
 
-  const handleSave = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSave = () => {
     onSave({
-      title: titleValue,
-      description: descriptionValue,
+      title: values.title,
+      description: values.description,
     })
     setEditable(false)
   }
 
   useEffect(() => {
-    setTitleValue(title)
-  }, [title])
-
-  useEffect(() => {
-    setDescriptionValue(description)
-  }, [description])
+    setValues((prevValues) => ({
+      prevValues,
+      title,
+      description,
+    }))
+  }, [title, description])
 
   return (
     <StyledContainer>
-      <StyledUserImage>{userImage && <Image src={userImage} alt="User Image" />}</StyledUserImage>
+      <StyledUserImage>
+        {userImage && <Image src={userImage} alt="User Image" />}
+      </StyledUserImage>
 
       {editable ? (
         <StyledMeta>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <StyledTextInput
-              value={titleValue}
-              placeholder="Wish List의 제목을 입력해주세요"
-              onChange={(e) => setTitleValue(e.target.value)}
+              value={values.title}
+              name="title"
               width="50%"
+              placeholder="Wish List의 제목을 입력해주세요"
               typographyType="header2"
+              onChange={handleInputChange}
             />
             <Button onClick={handleSave}>저장하기</Button>
           </div>
           <StyledTextInput
-            value={descriptionValue}
+            name="descriptino"
+            value={values.description}
             placeholder="Wish에 대한 소개를 입력해주세요"
-            onChange={(e) => setDescriptionValue(e.target.value)}
             typographyType="body1"
+            onChange={handleInputChange}
           />
         </StyledMeta>
       ) : (
