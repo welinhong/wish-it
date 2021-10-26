@@ -1,9 +1,10 @@
 import { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import WishInfo from '@/components/WishInfo/WishInfo'
 import WishItemWithContent from '@/components/WishItemWithContent'
 import WishItemDefault from '@/components/WishItemDefault'
+import WishModal from '@/components/WishModal'
 import { deepCopy } from '@/utils/deepCopy'
 
 const WishDetail: NextPage = (): JSX.Element => {
@@ -23,6 +24,48 @@ const WishDetail: NextPage = (): JSX.Element => {
     userImage: '',
   })
 
+  const [wishItem, setWishItem] = useState({
+    title: '',
+    price: '',
+    siteUrl: '',
+    photoUrl: '',
+  })
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleClickWishItemDefault = useCallback(() => {
+    setIsModalOpen(true)
+  }, [setIsModalOpen])
+
+  const handleWishItemClick = useCallback(
+    (selectedItem) => {
+      setIsModalOpen(true)
+      setWishItem(selectedItem)
+    },
+    [setIsModalOpen],
+  )
+
+  const handleMetaDataSave = ({
+    title,
+    description,
+  }: {
+    title: string
+    description: string
+  }) => {
+    // TODO: API 호출하기
+
+    // wishMeta 정보 수정하기
+    setWishMeta({
+      ...wishMeta,
+      title,
+      description,
+    })
+  }
+
+  const handleWishSave = (wish: Wish) => {
+    console.log('handleWishSave', wish)
+  }
+
   useEffect(() => {
     const setWishData = async () => {
       const { meta, wishes } = await getWishDetail()
@@ -40,31 +83,53 @@ const WishDetail: NextPage = (): JSX.Element => {
   }, [])
 
   return (
-    <S.Container>
-      <WishInfo
-        title={wishMeta.title}
-        description={wishMeta.description}
-        userImage={wishMeta.userImage}
-      />
+    <>
+      <S.Container>
+        <WishInfo
+          title={wishMeta.title}
+          description={wishMeta.description}
+          userImage={wishMeta.userImage}
+          onSave={handleMetaDataSave}
+        />
 
-      <S.WishList>
-        {wishItems.map(({ title, price, siteUrl, photoUrl, giverName, order }, index) => (
-          <S.WishItemWrap key={index}>
-            {order === index + 1 && title && price && siteUrl ? (
-              <WishItemWithContent
-                title={title}
-                price={price}
-                siteUrl={siteUrl}
-                photoUrl={photoUrl}
-                giverName={giverName}
-              />
-            ) : (
-              <WishItemDefault />
-            )}
-          </S.WishItemWrap>
-        ))}
-      </S.WishList>
-    </S.Container>
+        <S.WishList>
+          {wishItems.map(
+            ({ title, price, siteUrl, photoUrl, giverName, order }, index) => (
+              <S.WishItemWrap key={index}>
+                {order === index + 1 && title && price && siteUrl ? (
+                  <WishItemWithContent
+                    title={title}
+                    price={price}
+                    siteUrl={siteUrl}
+                    photoUrl={photoUrl}
+                    giverName={giverName}
+                    onClick={() =>
+                      handleWishItemClick({
+                        title,
+                        price,
+                        siteUrl,
+                        photoUrl,
+                      })
+                    }
+                  />
+                ) : (
+                  <WishItemDefault onClick={handleClickWishItemDefault} />
+                )}
+              </S.WishItemWrap>
+            ),
+          )}
+        </S.WishList>
+      </S.Container>
+
+      <WishModal
+        {...wishItem}
+        onClose={() => setIsModalOpen(false)}
+        isOpen={isModalOpen}
+        onSave={handleWishSave}
+      >
+        <div>등록창</div>
+      </WishModal>
+    </>
   )
 }
 
@@ -154,7 +219,7 @@ interface WishBasket {
   }
   wishes: Wish[]
 }
-interface Wish {
+export interface Wish {
   order: number
   title: string
   price: number

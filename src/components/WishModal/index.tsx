@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Modal, { Props as ModalProps } from '@/components/Modal'
 import TextInput from '@/components/TextInput'
@@ -11,7 +11,7 @@ export interface Props extends ModalProps {
   price?: string
   siteUrl?: string
   photoUrl?: string
-  onSave: (e: MouseEvent<HTMLButtonElement>) => void
+  onSave: (data: any) => void
 }
 
 const WishModal = ({
@@ -48,6 +48,12 @@ const WishModal = ({
       title,
       photoUrl: image,
     }))
+  }
+
+  const handleSave = () => {
+    onSave({
+      ...wish,
+    })
   }
 
   useEffect(() => {
@@ -92,7 +98,7 @@ const WishModal = ({
                 placeholder="가격을 입력해주세요"
                 onChange={handleInputChange}
               />
-              <Button onClick={onSave}>저장하기</Button>
+              <Button onClick={handleSave}>저장하기</Button>
             </>
           ) : (
             <Button onClick={handleURLSave}>URL 입력완료</Button>
