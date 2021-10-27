@@ -5,19 +5,19 @@ import { memo } from 'react'
 export interface Props {
   title: string
   price: number
-  siteUrl: string
-  photoUrl?: string
+  url: string
+  image?: string
   giverName?: string
   onClick?: () => void
 }
 
 const WishItemWithContent = (props: Props): JSX.Element => {
-  const { title, price, siteUrl, photoUrl, giverName, onClick } = props
+  const { title, price, url, image, giverName, onClick } = props
 
   return (
     <SContainer onClick={onClick}>
-      {photoUrl ? (
-        <SPhoto src={photoUrl} alt={title} />
+      {image ? (
+        <SPhoto src={image} alt={title} />
       ) : (
         <SOnlyTitle>
           <h2>{title}</h2>
@@ -38,7 +38,7 @@ const WishItemWithContent = (props: Props): JSX.Element => {
           marginBottom="8px"
           ellipsis
         >
-          {getOrigin(siteUrl)}
+          {getOrigin(url)}
         </Typography>
         <Typography type="header3" as="h3" marginBottom="8px" ellipsis>
           by {giverName}

@@ -10,11 +10,11 @@ import { deepCopy } from '@/utils/deepCopy'
 const WishDetail: NextPage = (): JSX.Element => {
   const [wishItems, setWishItems] = useState(
     Array.from({ length: 15 }, () => ({
-      order: undefined,
+      seq: undefined,
       title: undefined,
       price: undefined,
-      siteUrl: undefined,
-      photoUrl: undefined,
+      url: undefined,
+      image: undefined,
       giverName: undefined,
     })),
   )
@@ -27,8 +27,8 @@ const WishDetail: NextPage = (): JSX.Element => {
   const [wishItem, setWishItem] = useState({
     title: '',
     price: '',
-    siteUrl: '',
-    photoUrl: '',
+    url: '',
+    image: '',
   })
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -72,7 +72,7 @@ const WishDetail: NextPage = (): JSX.Element => {
 
       const newWishes = deepCopy(wishItems)
       wishes.forEach((wish) => {
-        newWishes[wish?.order - 1] = wish
+        newWishes[wish?.seq - 1] = wish
       })
 
       setWishItems(newWishes)
@@ -94,21 +94,21 @@ const WishDetail: NextPage = (): JSX.Element => {
 
         <S.WishList>
           {wishItems.map(
-            ({ title, price, siteUrl, photoUrl, giverName, order }, index) => (
+            ({ title, price, url, image, giverName, seq }, index) => (
               <S.WishItemWrap key={index}>
-                {order === index + 1 && title && price && siteUrl ? (
+                {seq === index + 1 && title && price && url ? (
                   <WishItemWithContent
                     title={title}
                     price={price}
-                    siteUrl={siteUrl}
-                    photoUrl={photoUrl}
+                    url={url}
+                    image={image}
                     giverName={giverName}
                     onClick={() =>
                       handleWishItemClick({
                         title,
                         price,
-                        siteUrl,
-                        photoUrl,
+                        url,
+                        image,
                       })
                     }
                   />
@@ -220,11 +220,11 @@ interface WishBasket {
   wishes: Wish[]
 }
 export interface Wish {
-  order: number
+  seq: number
   title: string
   price: number
-  siteUrl: string
-  photoUrl?: string
+  url: string
+  image?: string
   giverName?: string
 }
 

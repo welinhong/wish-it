@@ -9,16 +9,16 @@ import { getOgTagFromUrl } from '@/utils/urlScraper'
 export interface Props extends ModalProps {
   title?: string
   price?: string
-  siteUrl?: string
-  photoUrl?: string
+  url?: string
+  image?: string
   onSave: (data: any) => void
 }
 
 const WishModal = ({
   title,
   price,
-  siteUrl,
-  photoUrl,
+  url,
+  image,
   isOpen,
   onClose,
   onSave,
@@ -26,8 +26,8 @@ const WishModal = ({
   const [wish, setWish] = useState({
     title,
     price,
-    siteUrl,
-    photoUrl,
+    url,
+    image,
   })
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,13 +40,13 @@ const WishModal = ({
   }
 
   const handleURLSave = async () => {
-    if (!wish?.siteUrl) return
-    const { title, image } = await getOgTagFromUrl(wish?.siteUrl)
+    if (!wish?.url) return
+    const { title, image } = await getOgTagFromUrl(wish?.url)
 
     setWish((prevWish) => ({
       ...prevWish,
       title,
-      photoUrl: image,
+      image: image,
     }))
   }
 
@@ -56,15 +56,32 @@ const WishModal = ({
     })
   }
 
+  const reset = () => {
+    console.log('reset')
+    console.log('1', wish.url)
+
+    setWish({
+      title: '',
+      price: '',
+      url: '',
+      image: '',
+    })
+    console.log('2', wish.url)
+  }
+
   useEffect(() => {
     setWish((prevWish) => ({
       ...prevWish,
       title,
       price,
-      photoUrl,
-      siteUrl,
+      image,
+      url,
     }))
-  }, [title, price, photoUrl, siteUrl])
+  }, [title, price, image, url])
+
+  useEffect(() => {
+    // TODO: 모달창이 닫히면 데이터를 리셋하는 것부터 작업하기
+  }, [isOpen])
 
   return (
     <Modal width="1024px" isOpen={isOpen} onClose={onClose}>
@@ -75,14 +92,14 @@ const WishModal = ({
       <StyledContent>
         <StyledForm>
           <TextInput
-            name="siteUrl"
-            value={wish.siteUrl}
+            name="url"
+            value={wish.url}
             typographyType="body1"
             placeholder="제품의 URL을 입력해주세요"
             onChange={handleInputChange}
           />
 
-          {wish?.siteUrl && wish?.photoUrl ? (
+          {wish?.url && wish?.image ? (
             <>
               <TextInput
                 name="title"
@@ -106,7 +123,7 @@ const WishModal = ({
         </StyledForm>
         <StyledSquareImage>
           <img
-            src={wish.photoUrl}
+            src={wish.image}
             alt="제품의 URL을 입력하시면 이곳에 제품의 사진이 보입니다"
           />
         </StyledSquareImage>
