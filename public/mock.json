@@ -6,60 +6,76 @@
   },
   "wishes": [
     {
-      "order": 1,
+      "id": 1,
+      "seq": 1,
       "title": "첫번째 상품",
       "price": 100000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/asin/B000BIVY2Y/B.jpg?540000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/asin/B000BIVY2Y/B.jpg?540000000",
       "giverName": "최익순"
     },
     {
-      "order": 2,
+      "id": 2,
+      "seq": 2,
       "title": "두번째 상품",
       "price": 200000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/asin/B08DKDD48N/B.jpg?689000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/asin/B08DKDD48N/B.jpg?689000000",
       "giverName": "김희수"
     },
     {
-      "order": 3,
+      "id": 3,
+      "seq": 3,
       "title": "세번째 상품",
       "price": 300000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/400x400/quality/75/11src/asin/B0009F3PQM/B.jpg?176000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/400x400/quality/75/11src/asin/B0009F3PQM/B.jpg?176000000",
       "giverName": "홍단비"
     },
     {
-      "order": 4,
-      "title": "네번째 상품",
+      "id": 4,
+      "seq": 4,
+      "title": "상품명이 길어요 상품명이 길어요 상품명이 길어요 ",
       "price": 400000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/browsing/space/banner/2021/10/12/2110121538286000535_12.jpg",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/720x360/quality/75/11src/browsing/space/banner/2021/10/12/2110121538286000535_12.jpg",
       "giverName": "김엘리"
     },
     {
-      "order": 5,
+      "id": 5,
+      "seq": 5,
       "title": "다섯번째 상품",
       "price": 500000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/asin/B091J7B6X7/B.jpg?430000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/asin/B091J7B6X7/B.jpg?430000000",
       "giverName": "최썬"
     },
     {
-      "order": 6,
+      "id": 6,
+      "seq": 6,
       "title": "여섯번째 상품",
       "price": 600000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/asin/B08BZXL9BD/B.jpg?484000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/asin/B08BZXL9BD/B.jpg?484000000",
       "giverName": "홍웰린"
     },
     {
-      "order": 7,
+      "id": 7,
+      "seq": 7,
       "title": "일곱번째 상품",
       "price": 700000,
-      "siteUrl": "https://www.11st.co.kr/products/pa/3666188303",
-      "photoUrl": "http://cdn.011st.com/11dims/resize/800x800/quality/75/11src/asin/B08C2888MW/B.jpg?511000000",
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": "http://cdn.011st.com/11dims/resize/800x800/quality/75/11src/asin/B08C2888MW/B.jpg?511000000",
       "giverName": "라코조"
+    },
+    {
+      "id": 13,
+      "seq": 13,
+      "title": "테슬라 Y",
+      "price": 700000,
+      "url": "https://www.11st.co.kr/products/pa/3666188303",
+      "image": null,
+      "giverName": "썬"
     }
   ]
 }
