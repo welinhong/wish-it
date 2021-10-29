@@ -4,6 +4,7 @@ import Typography from '@/components/Typography'
 import { ChangeEvent, useEffect, useState } from 'react'
 import TextInput from '@/components/TextInput'
 import Button from '@/components/Button'
+import Icon, { IconPack } from '@/components/Icon'
 
 export interface Props {
   title: string
@@ -88,13 +89,17 @@ const WishInfo = ({
         </StyledMeta>
       ) : (
         <StyledMeta>
-          <Typography type="header2" as="h2" marginBottom="8px">
-            {title}
-          </Typography>
+          <TitleContainer>
+            <Typography type="header2" as="h2" marginBottom="8px">
+              {title}
+            </Typography>
+            <SettingButton onClick={handleEdit}>
+              <Icon name={IconPack.SETTING} width="16px" height="16px" />
+            </SettingButton>
+          </TitleContainer>
           <Typography type="body2" as="p">
             {description}
           </Typography>
-          <button onClick={handleEdit}>수정</button>
         </StyledMeta>
       )}
     </StyledContainer>
@@ -122,6 +127,16 @@ const StyledMeta = styled.div`
 const StyledTextInput = styled(TextInput)<{ width?: string }>`
   ${({ width }) => width && `width: ${width};`}
   margin-bottom: 34px;
+`
+const SettingButton = styled.button`
+  display: inline-block;
+  align-self: flex-start;
+  background: none;
+  border: none;
+  cursor: pointer;
+`
+const TitleContainer = styled.div`
+  display: flex;
 `
 
 export default WishInfo
