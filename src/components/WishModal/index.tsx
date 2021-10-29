@@ -39,14 +39,22 @@ const WishModal = ({
     }))
   }
 
-  const handleURLSave = async () => {
-    if (!wish?.url) return
-    const { title, image } = await getOgTagFromUrl(wish?.url)
+  const handleUrlInput = (e: ChangeEvent<HTMLInputElement>) => {
+    handleInputChange(e)
+
+    const url = e.target.value
+    if (!url) return
+
+    setImageUrl(url)
+  }
+
+  const setImageUrl = async (url: string) => {
+    const { title, image } = await getOgTagFromUrl(url)
 
     setWish((prevWish) => ({
       ...prevWish,
-      title,
-      image: image,
+      ...(title && { title }),
+      image: image || '',
     }))
   }
 
@@ -54,19 +62,21 @@ const WishModal = ({
     onSave({
       ...wish,
     })
+    reset()
+  }
+
+  const handleClose = () => {
+    reset()
+    onClose()
   }
 
   const reset = () => {
-    console.log('reset')
-    console.log('1', wish.url)
-
     setWish({
       title: '',
       price: '',
       url: '',
       image: '',
     })
-    console.log('2', wish.url)
   }
 
   useEffect(() => {
@@ -84,7 +94,7 @@ const WishModal = ({
   }, [isOpen])
 
   return (
-    <Modal width="1024px" isOpen={isOpen} onClose={onClose}>
+    <Modal width="1024px" isOpen={isOpen} onClose={handleClose}>
       <Typography type="header2" as="h2">
         등록하기
       </Typography>
@@ -96,30 +106,32 @@ const WishModal = ({
             value={wish.url}
             typographyType="body1"
             placeholder="제품의 URL을 입력해주세요"
+            helper="선물하기 기능이 있는 사이트를 입력하면 친구가 선물하기 더 편해요!"
+            onChange={handleUrlInput}
+          />
+
+          <TextInput
+            name="title"
+            value={wish.title}
+            typographyType="body1"
+            placeholder="이름을 입력해주세요"
             onChange={handleInputChange}
           />
 
-          {wish?.url && wish?.image ? (
-            <>
-              <TextInput
-                name="title"
-                value={wish.title}
-                typographyType="body1"
-                placeholder="이름을 입력해주세요"
-                onChange={handleInputChange}
-              />
-              <TextInput
-                name="price"
-                value={wish.price}
-                typographyType="body1"
-                placeholder="가격을 입력해주세요"
-                onChange={handleInputChange}
-              />
-              <Button onClick={handleSave}>저장하기</Button>
-            </>
-          ) : (
-            <Button onClick={handleURLSave}>URL 입력완료</Button>
-          )}
+          <TextInput
+            name="price"
+            value={wish.price}
+            typographyType="body1"
+            placeholder="가격을 입력해주세요"
+            onChange={handleInputChange}
+          />
+
+          <Button
+            disabled={!wish.url || !wish.title || !wish.price}
+            onClick={handleSave}
+          >
+            저장하기
+          </Button>
         </StyledForm>
         <StyledSquareImage>
           <img
