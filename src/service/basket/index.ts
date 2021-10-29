@@ -22,7 +22,7 @@ export const getBasketList = async (userId: string): Promise<Basket[]> => {
     return {
       id: basket.id,
       title: basket.title,
-      desc: basket.desc,
+      description: basket.description,
       memberId: basket.memberId,
       items,
     }
@@ -47,7 +47,7 @@ export const getBasket = async (id: string): Promise<Basket> => {
   return {
     id: basket.id,
     title: basket.title,
-    desc: basket.desc,
+    description: basket.description,
     memberId: basket.memberId,
     items,
   }
@@ -79,7 +79,7 @@ export const putBasket = async (
   return {
     id: basket.id,
     title: basket.title,
-    desc: basket.desc,
+    description: basket.description,
     memberId: basket.memberId,
     items,
   }

@@ -23,7 +23,7 @@ export const postBasketItem = async (
   return {
     id: basket.id,
     title: basket.title,
-    desc: basket.desc,
+    description: basket.description,
     memberId: basket.memberId,
     items,
   }
@@ -50,7 +50,7 @@ export const deleteBasketItem = async (
   return {
     id: basket.id,
     title: basket.title,
-    desc: basket.desc,
+    description: basket.description,
     memberId: basket.memberId,
     items,
   }
@@ -79,7 +79,7 @@ export const putBasketItem = async (
   return {
     id: basket.id,
     title: basket.title,
-    desc: basket.desc,
+    description: basket.description,
     memberId: basket.memberId,
     items,
   }

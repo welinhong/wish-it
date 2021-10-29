@@ -2,7 +2,7 @@
 export interface Basket {
   id: number
   title: string
-  desc: string
+  description: string
   memberId: string
   items: BasketItem[]
 }

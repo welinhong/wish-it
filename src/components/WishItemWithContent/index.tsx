@@ -4,7 +4,7 @@ import { memo } from 'react'
 
 export interface Props {
   title: string
-  price: number
+  price: string
   url: string
   image?: string
   giverName?: string
