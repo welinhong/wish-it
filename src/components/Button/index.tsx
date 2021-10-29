@@ -3,11 +3,20 @@ import styled from 'styled-components'
 
 export interface Props {
   children: ReactNode
+  disabled?: boolean
   onClick: (e: MouseEvent<HTMLButtonElement>) => void
 }
 
-const Button = ({ children, onClick }: Props): JSX.Element => {
-  return <StyledButton onClick={onClick}>{children}</StyledButton>
+const Button = ({
+  children,
+  disabled = false,
+  onClick,
+}: Props): JSX.Element => {
+  return (
+    <StyledButton disabled={disabled} onClick={onClick}>
+      {children}
+    </StyledButton>
+  )
 }
 
 const StyledButton = styled.button`
@@ -19,6 +28,11 @@ const StyledButton = styled.button`
   font-weight: bold;
   align-self: flex-start;
   cursor: pointer;
+  &:disabled {
+    background-color: #ececec;
+    color: #767676;
+    cursor: not-allowed;
+  }
 `
 
 export default Button
