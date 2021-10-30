@@ -6,16 +6,25 @@ import WishItemWithContent from '@/components/WishItemWithContent'
 import WishItemDefault from '@/components/WishItemDefault'
 import WishModal from '@/components/WishModal'
 import { deepCopy } from '@/utils/deepCopy'
+import { Basket } from '@/service/models'
 
+const initialItem = {
+  id: 0,
+  title: '',
+  price: '',
+  url: '',
+  image: '',
+}
 const WishDetail: NextPage = (): JSX.Element => {
   const [wishItems, setWishItems] = useState(
     Array.from({ length: 15 }, () => ({
-      seq: undefined,
-      title: undefined,
-      price: undefined,
-      url: undefined,
-      image: undefined,
-      giverName: undefined,
+      seq: 0,
+      id: 0,
+      title: '',
+      price: '',
+      url: '',
+      image: '',
+      giverName: '',
     })),
   )
   const [wishMeta, setWishMeta] = useState({
@@ -24,23 +33,21 @@ const WishDetail: NextPage = (): JSX.Element => {
     userImage: '',
   })
 
-  const [wishItem, setWishItem] = useState({
-    title: '',
-    price: '',
-    url: '',
-    image: '',
-  })
+  const [selectedItem, setSelectedItem] = useState(initialItem)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleClickWishItemDefault = useCallback(() => {
     setIsModalOpen(true)
+    setSelectedItem(initialItem)
   }, [setIsModalOpen])
 
   const handleWishItemClick = useCallback(
     (selectedItem) => {
       setIsModalOpen(true)
-      setWishItem(selectedItem)
+      setSelectedItem({
+        ...selectedItem,
+      })
     },
     [setIsModalOpen],
   )
@@ -63,24 +70,34 @@ const WishDetail: NextPage = (): JSX.Element => {
   }
 
   const handleWishSave = (wish: Wish) => {
-    console.log('handleWishSave', wish)
+    // 등록 또는 수정 API 호출
+    console.log('handleWishSave', selectedItem.id, wish)
+
+    // selectedItem 리셋
+    // setSelectedItem(initialItem)
+
+    // 장바구니 아이템 목록을 업데이트 or 업데이트 한 아이템만 업데이트
   }
 
   useEffect(() => {
     const setWishData = async () => {
-      const { meta, wishes } = await getWishDetail()
+      const { items, title, description } = await getWishDetail() // TODO: API 변경
 
       const newWishes = deepCopy(wishItems)
-      wishes.forEach((wish) => {
+      items.forEach((wish) => {
         newWishes[wish?.seq - 1] = wish
       })
 
       setWishItems(newWishes)
-      setWishMeta(meta)
+      setWishMeta({
+        title: title,
+        description: description,
+        userImage: '', // TODO: GET user/me 호출해서 프로필을 출력한다
+      })
     }
 
     setWishData()
-  }, [])
+  }, [wishItems])
 
   return (
     <>
@@ -94,7 +111,7 @@ const WishDetail: NextPage = (): JSX.Element => {
 
         <S.WishList>
           {wishItems.map(
-            ({ title, price, url, image, giverName, seq }, index) => (
+            ({ id, title, price, url, image, giverName, seq }, index) => (
               <S.WishItemWrap key={index}>
                 {seq === index + 1 && title && price && url ? (
                   <WishItemWithContent
@@ -105,6 +122,7 @@ const WishDetail: NextPage = (): JSX.Element => {
                     giverName={giverName}
                     onClick={() =>
                       handleWishItemClick({
+                        id,
                         title,
                         price,
                         url,
@@ -122,7 +140,8 @@ const WishDetail: NextPage = (): JSX.Element => {
       </S.Container>
 
       <WishModal
-        {...wishItem}
+        {...selectedItem}
+        isNew={selectedItem?.id <= 0}
         onClose={() => setIsModalOpen(false)}
         isOpen={isModalOpen}
         onSave={handleWishSave}
@@ -211,14 +230,6 @@ const S = {
   `,
 }
 
-interface WishBasket {
-  meta: {
-    title: string
-    description: string
-    userImage: string
-  }
-  wishes: Wish[]
-}
 export interface Wish {
   seq: number
   title: string
@@ -228,7 +239,7 @@ export interface Wish {
   giverName?: string
 }
 
-const getWishDetail = async (): Promise<WishBasket> => {
+const getWishDetail = async (): Promise<Basket> => {
   const response = await fetch('http://localhost:3000/mock.json')
   return await response.json()
 }

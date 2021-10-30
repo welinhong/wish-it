@@ -7,6 +7,7 @@ import Typography from '@/components/Typography'
 import { getOgTagFromUrl } from '@/utils/urlScraper'
 
 export interface Props extends ModalProps {
+  isNew: boolean
   title?: string
   price?: string
   url?: string
@@ -15,6 +16,7 @@ export interface Props extends ModalProps {
 }
 
 const WishModal = ({
+  isNew,
   title,
   price,
   url,
@@ -62,21 +64,7 @@ const WishModal = ({
     onSave({
       ...wish,
     })
-    reset()
-  }
-
-  const handleClose = () => {
-    reset()
     onClose()
-  }
-
-  const reset = () => {
-    setWish({
-      title: '',
-      price: '',
-      url: '',
-      image: '',
-    })
   }
 
   useEffect(() => {
@@ -89,14 +77,10 @@ const WishModal = ({
     }))
   }, [title, price, image, url])
 
-  useEffect(() => {
-    // TODO: 모달창이 닫히면 데이터를 리셋하는 것부터 작업하기
-  }, [isOpen])
-
   return (
-    <Modal width="1024px" isOpen={isOpen} onClose={handleClose}>
+    <Modal width="1024px" isOpen={isOpen} onClose={onClose}>
       <Typography type="header2" as="h2">
-        등록하기
+        {isNew ? '등록하기' : '수정하기'}
       </Typography>
 
       <StyledContent>
