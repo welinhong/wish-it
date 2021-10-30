@@ -1,10 +1,9 @@
 {
-  "meta": {
-    "title": "Sun's Wishes",
-    "description": "안녕하세요. 이번 10월 1일 이사를 하게 되면서 갖고 싶은 목록을 정리해봤습니다. 사주세요!",
-    "userImage": ""
-  },
-  "wishes": [
+  "id": 1,
+  "title": "Sun's Wishes",
+  "description": "안녕하세요. 이번 10월 1일 이사를 하게 되면서 갖고 싶은 목록을 정리해봤습니다. 사주세요!",
+  "memberId": "",
+  "items": [
     {
       "id": 1,
       "seq": 1,
