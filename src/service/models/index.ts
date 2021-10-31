@@ -16,3 +16,10 @@ export interface BasketItem {
   giverName: string
   seq: number
 }
+
+export interface User {
+  id: number
+  nickname: string
+  profileImage: string
+  token?: string
+}

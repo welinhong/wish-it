@@ -2,7 +2,7 @@ import axios, { AxiosResponse, Method } from 'axios'
 
 interface FetcherParams {
   url: string
-  method: Method
+  method?: Method
   data?: unknown
   params?: unknown
   config?: { [key: string]: unknown }
@@ -12,7 +12,7 @@ interface FetcherParams {
 
 export const fetcher = async <T>({
   url,
-  method,
+  method = 'GET',
   data = null,
   params = null,
   baseURL = '',
