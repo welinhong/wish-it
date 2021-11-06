@@ -15,7 +15,7 @@ export const fetcher = async <T>({
   method = 'GET',
   data = null,
   params = null,
-  baseURL = '',
+  baseURL = process.env.NEXT_PUBLIC_BASE_URL,
   headers,
   config,
 }: FetcherParams): Promise<T> => {

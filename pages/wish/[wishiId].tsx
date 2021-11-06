@@ -240,7 +240,7 @@ export interface Wish {
 }
 
 const getWishDetail = async (): Promise<Basket> => {
-  const response = await fetch('http://localhost:3000/mock.json')
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/mock.json`)
   return await response.json()
 }
 

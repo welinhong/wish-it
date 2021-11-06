@@ -28,6 +28,6 @@ export const initializeKakaoSDK = (): boolean => {
 
 export const authorizeKakaoAuth = (): void => {
   window.Kakao.Auth.authorize({
-    redirectUri: `http://localhost:3000/auth`,
+    redirectUri: `${process.env.NEXT_PUBLIC_BASE_URL}/auth`,
   })
 }
