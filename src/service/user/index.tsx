@@ -9,7 +9,7 @@ export const postLogin = async ({
   socialType: string
 }): Promise<User> => {
   return await fetcher({
-    url: '/user/signIn',
+    url: '/user/signin',
     method: 'POST',
     data: {
       code,
